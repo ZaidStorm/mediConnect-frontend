@@ -1,0 +1,104 @@
+/* login.css - styles specific to login pages */
+
+@keyframes pulse-login {
+  0% { transform: rotate(0deg) scale(0.9); }
+  50% { transform: rotate(180deg) scale(1); }
+  100% { transform: rotate(360deg) scale(0.9); }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+body.login-page .login-hero {
+  height: 100vh; /* full viewport height */
+  background: linear-gradient(135deg, #4b6cb7, #182848); /* blue-dark scheme */
+  position: relative;
+  overflow: hidden;
+  animation: slideInDown 0.5s ease-out;
+}
+
+body.login-page .login-hero::before {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+  top: -25%;
+  left: -25%;
+  animation: pulse-login 10s infinite linear;
+}
+
+body.login-page .login-container {
+  animation: scaleIn 0.5s ease-out 0.2s backwards;
+}
+
+body.login-page .login-form {
+  animation: slideInUp 0.5s ease-out 0.3s backwards;
+}
+
+body.login-page .login-form input {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+  animation: slideInUp 0.4s ease-out;
+  animation-fill-mode: both;
+}
+
+body.login-page .login-form input:nth-child(1) { animation-delay: 0.4s; }
+body.login-page .login-form input:nth-child(2) { animation-delay: 0.5s; }
+
+body.login-page .login-form input:focus {
+  outline: none;
+  border-color: #4b6cb7;
+  box-shadow: 0 0 12px rgba(75, 108, 183, 0.3);
+  background: #f0f8ff;
+  transform: translateY(-2px);
+}
+
+body.login-page .login-form button {
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+  border: none;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: slideInUp 0.4s ease-out 0.6s backwards;
+}
+
+body.login-page .login-form button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(75, 108, 183, 0.4);
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prescription - MediConnect</title>
+  <link rel="stylesheet" href="../css/doctor.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<div class="prescription-container">
+
+  <header class="prescription-header">
+      <h2>MediConnect Clinic</h2>
+      <p>Doctor Prescription</p>
+  </header>
+
+  <section class="patient-info">
+      <h3>Patient Information</h3>
+      <input id="prescPatientName" type="text" placeholder="Patient Name">
+      <input id="prescAge" type="number" placeholder="Age">
+      <select id="prescGender">
+          <option value="">Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+      </select>
+      <input id="prescDate" type="date">
+  </section>
+
+  <section>
+      <h3>Diagnosis</h3>
+      <textarea id="prescDiagnosis" placeholder="Enter diagnosis"></textarea>
+  </section>
+
+  <section>
+      <h3>Medicines</h3>
+      <textarea id="prescMeds" placeholder="Medicine name, dosage, duration..."></textarea>
+  </section>
+
+  <section>
+      <h3>Lab Tests</h3>
+      <textarea id="prescLabs" placeholder="Recommended lab tests"></textarea>
+  </section>
+
+  <section>
+      <h3>Follow-up</h3>
+      <input id="prescFollowUp" type="text" placeholder="Follow-up instructions">
+  </section>
+
+  <section class="action-buttons">
+      <button onclick="downloadPrescriptionPDF()">Download as PDF</button>
+      <button onclick="navigateTo('doctor_dashboard.html')">Back to Dashboard</button>
+  </section>
+
+</div>
+
+<script src="../js/doctor.js"></script>
+</body>
+</html>

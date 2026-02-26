@@ -1,0 +1,188 @@
+/* edit_uploaded_file.css - styles for the edit uploaded file page */
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+body.edit-file-page {
+  background: linear-gradient(135deg, #f0f4f8, #e8f1f9);
+  min-height: 100vh;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+body.edit-file-page h2 {
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  animation: slideInUp 0.5s ease-out;
+}
+
+body.edit-file-page .card {
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  background: white;
+  animation: slideInUp 0.6s ease-out;
+  transition: all 0.3s ease;
+}
+
+body.edit-file-page .card:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+body.edit-file-page .form-label {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+body.edit-file-page input[type="text"],
+body.edit-file-page input[type="email"],
+body.edit-file-page input[type="file"],
+body.edit-file-page select {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+body.edit-file-page input:focus,
+body.edit-file-page select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+  background: #f0f8ff;
+  transform: translateY(-2px);
+}
+
+body.edit-file-page .btn {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+body.edit-file-page .btn-primary {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border: none;
+}
+
+body.edit-file-page .btn-primary:hover {
+  background: linear-gradient(135deg, #2980b9, #1e5c8c);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+}
+
+body.edit-file-page .btn-danger {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  border: none;
+}
+
+body.edit-file-page .btn-danger:hover {
+  background: linear-gradient(135deg, #c0392b, #8b2e1f);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+}
+
+body.edit-file-page .btn-secondary {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+  border: none;
+}
+
+body.edit-file-page .btn-secondary:hover {
+  background: linear-gradient(135deg, #7f8c8d, #5d6d7b);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(127, 140, 141, 0.3);
+}
+
+body.edit-file-page .file-preview {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  animation: scaleIn 0.4s ease-out;
+}
+
+body.edit-file-page .patient-report-card {
+  animation: scaleIn 0.4s ease-out;
+  animation-fill-mode: both;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+body.edit-file-page .patient-report-card:nth-child(1) { animation-delay: 0.1s; }
+body.edit-file-page .patient-report-card:nth-child(2) { animation-delay: 0.2s; }
+body.edit-file-page .patient-report-card:nth-child(3) { animation-delay: 0.3s; }
+body.edit-file-page .patient-report-card:nth-child(n+4) { animation-delay: 0.4s; }
+
+body.edit-file-page .patient-report-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+body.edit-file-page .success-message {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  animation: slideInUp 0.4s ease-out;
+}
+
+body.edit-file-page .error-message {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  animation: slideInUp 0.4s ease-out;
+}
+
+@media (max-width: 768px) {
+  body.edit-file-page .container {
+    padding: 1rem;
+  }
+
+  body.edit-file-page h2 {
+    font-size: 1.5rem;
+  }
+
+  body.edit-file-page .card {
+    margin-bottom: 1rem;
+  }
+}

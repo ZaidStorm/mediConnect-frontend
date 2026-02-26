@@ -1,0 +1,93 @@
+/* patient_dashboard.css - styles specific to patient dashboard page */
+
+@keyframes floatShapes2 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(30px, -15px) rotate(180deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+body.patient-dashboard-page {
+  background: linear-gradient(135deg, #dce3f0, #a6c1ee);
+  position: relative;
+  overflow-x: hidden;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+body.patient-dashboard-page::before {
+  content: '';
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  top: -15%;
+  left: -15%;
+  background: radial-gradient(circle at 40% 40%, rgba(0, 82, 204, 0.498), transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(57, 147, 199, 0.377), transparent 20%);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatShapes2 18s infinite ease-in-out alternate;
+}
+
+body.patient-dashboard-page h2 {
+  animation: slideInUp 0.5s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+/* feedback table truncation */
+body.patient-dashboard-page #feedbackTable {
+  animation: slideInUp 0.6s ease-out 0.2s backwards;
+}
+
+body.patient-dashboard-page #feedbackTable td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  transition: all 0.3s ease;
+}
+
+body.patient-dashboard-page #feedbackTable tbody tr {
+  animation: fadeIn 0.3s ease-out;
+  animation-fill-mode: both;
+  transition: all 0.2s ease;
+}
+
+body.patient-dashboard-page #feedbackTable tbody tr:nth-child(1) { animation-delay: 0.3s; }
+body.patient-dashboard-page #feedbackTable tbody tr:nth-child(2) { animation-delay: 0.4s; }
+body.patient-dashboard-page #feedbackTable tbody tr:nth-child(3) { animation-delay: 0.5s; }
+body.patient-dashboard-page #feedbackTable tbody tr:nth-child(n+4) { animation-delay: 0.6s; }
+
+body.patient-dashboard-page #feedbackTable tbody tr:hover {
+  transform: scale(1.01);
+  background-color: #f0f8ff;
+}
+
+body.patient-dashboard-page #feedbackTable td:hover {
+  overflow: visible;
+  white-space: normal;
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  padding: 5px;
+}

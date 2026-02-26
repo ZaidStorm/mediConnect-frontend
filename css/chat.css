@@ -1,0 +1,227 @@
+/* chat.css - styles for chat with doctor page */
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes doctorMessageSlide {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+body.chat-page {
+  background: linear-gradient(135deg, #f0f4f8, #e8f1f9);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+body.chat-page h2 {
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  animation: slideInUp 0.5s ease-out;
+}
+
+body.chat-page .card {
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  background: white;
+  animation: slideInUp 0.6s ease-out;
+  transition: all 0.3s ease;
+}
+
+body.chat-page .card:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+body.chat-page .chat-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  height: 350px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  background: #f9fafb;
+}
+
+body.chat-page .chat-message {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  max-width: 80%;
+  word-wrap: break-word;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+body.chat-page .chat-message.patient {
+  text-align: left;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  color: #1565c0;
+  animation: messageSlide 0.3s ease-out;
+  box-shadow: 0 2px 8px rgba(21, 101, 192, 0.1);
+}
+
+body.chat-page .chat-message.doctor {
+  text-align: right;
+  background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+  color: #6a1b9a;
+  margin-left: auto;
+  animation: doctorMessageSlide 0.3s ease-out;
+  box-shadow: 0 2px 8px rgba(106, 27, 154, 0.1);
+}
+
+body.chat-page #patientMessage {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+body.chat-page #patientMessage:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+  background: #f0f8ff;
+  transform: translateY(-2px);
+}
+
+body.chat-page .btn-primary {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  transition: all 0.3s ease;
+}
+
+body.chat-page .btn-primary:hover {
+  background: linear-gradient(135deg, #2980b9, #1e5c8c);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+}
+
+body.chat-page .rating-stars {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+body.chat-page .rating-stars span {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ccc;
+  transition: all 0.2s ease;
+}
+
+body.chat-page .rating-stars span:hover,
+body.chat-page .rating-stars span.selected {
+  color: #ffc107;
+  transform: scale(1.2) rotate(10deg);
+  text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+
+body.chat-page #ratingSection {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #ffc107;
+  margin-top: 1.5rem;
+  animation: slideInUp 0.5s ease-out 0.3s backwards;
+}
+
+body.chat-page #ratingSection p {
+  margin: 0 0 1rem 0;
+  color: #856404;
+  font-weight: 600;
+}
+
+body.chat-page #uploadedFiles {
+  margin-top: 1.5rem;
+}
+
+body.chat-page .file-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  animation: fadeIn 0.4s ease-out;
+  animation-fill-mode: both;
+}
+
+body.chat-page .file-card:nth-child(1) { animation-delay: 0.1s; }
+body.chat-page .file-card:nth-child(2) { animation-delay: 0.2s; }
+body.chat-page .file-card:nth-child(3) { animation-delay: 0.3s; }
+body.chat-page .file-card:nth-child(n+4) { animation-delay: 0.4s; }
+
+body.chat-page .file-card:hover {
+  background-color: #f3f4f6;
+  border-color: #3498db;
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.2);
+  transform: translateY(-4px);
+}
+
+body.chat-page .file-card a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+body.chat-page .file-card a:hover {
+  text-decoration: underline;
+  color: #2980b9;
+}
+
+@media (max-width: 768px) {
+  body.chat-page .chat-message {
+    max-width: 100%;
+  }
+
+  body.chat-page .chat-box {
+    height: 250px;
+  }
+
+  body.chat-page .rating-stars span {
+    font-size: 1.5rem;
+  }
+}

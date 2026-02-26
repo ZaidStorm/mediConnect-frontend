@@ -1,0 +1,112 @@
+/* patient_feedback.css - styles used on standalone feedback page */
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+body.feedback-page,
+body.feedback-page html {
+  height: 100%;
+  margin: 0;
+  background: linear-gradient(135deg, #f0f4f8, #e8f1f9);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+body.feedback-page .feedback-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  animation: fadeIn 0.6s ease-out 0.1s backwards;
+}
+
+body.feedback-page .card-feedback {
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border-radius: 12px;
+  background: white;
+  animation: scaleIn 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+body.feedback-page .card-feedback:hover {
+  box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+  transform: translateY(-4px);
+}
+
+body.feedback-page .card-feedback form {
+  animation: slideInUp 0.5s ease-out 0.2s backwards;
+}
+
+body.feedback-page .card-feedback input,
+body.feedback-page .card-feedback select,
+body.feedback-page .card-feedback textarea {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+  animation: slideInUp 0.3s ease-out;
+  animation-fill-mode: both;
+}
+
+body.feedback-page .card-feedback input:nth-child(1) { animation-delay: 0.3s; }
+body.feedback-page .card-feedback input:nth-child(2) { animation-delay: 0.4s; }
+body.feedback-page .card-feedback input:nth-child(3) { animation-delay: 0.5s; }
+body.feedback-page .card-feedback select { animation-delay: 0.6s; }
+body.feedback-page .card-feedback textarea { animation-delay: 0.7s; }
+
+body.feedback-page .card-feedback input:focus,
+body.feedback-page .card-feedback select:focus,
+body.feedback-page .card-feedback textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 12px rgba(52, 152, 219, 0.3);
+  background: #f0f8ff;
+  transform: translateY(-2px);
+}
+
+body.feedback-page .card-feedback button {
+  background: linear-gradient(135deg, #27ae60, #229954);
+  border: none;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: slideInUp 0.3s ease-out 0.8s backwards;
+}
+
+body.feedback-page .card-feedback button:hover {
+  background: linear-gradient(135deg, #229954, #1a6e3e);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(39, 174, 96, 0.3);
+}

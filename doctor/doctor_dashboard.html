@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard - MediConnect</title>
+    <link rel="stylesheet" href="../css/doctor.css">
+</head>
+<body>
+
+<header class="topbar">
+    <h1>MediConnect - Doctor Dashboard</h1>
+</header>
+
+<section class="dashboard-container">
+
+    <div class="card">
+        <h2>📝 Create Prescription</h2>
+        <p>Create and manage patient prescriptions.</p>
+        <button onclick="navigateTo('prescription.html')">Open Prescription</button>
+    </div>
+
+    <div class="card">
+        <h2>📄 Medical Reports</h2>
+        <p>Upload and manage medical reports.</p>
+        <button onclick="navigateTo('medical_report.html')">Open Reports</button>
+    </div>
+
+    <div class="card">
+        <h2>📅 Today's Appointments</h2>
+        <p>View today's scheduled appointments.</p>
+        <button onclick="navigateTo('appointments.html')">View Appointments</button>
+    </div>
+
+</section>
+
+<script src="../js/doctor.js"></script>
+</body>
+</html>
