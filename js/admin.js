@@ -85,6 +85,179 @@ function removeAppointment(index) {
   }
 }
 
+// ---------- Non-Regular Appointment Functions ----------
+// Initialize 24-hour auto-removal check
+function initNonRegularAutoRemoval() {
+  cleanExpiredNonRegularAppointments();
+  // Check every hour
+  setInterval(cleanExpiredNonRegularAppointments, 3600000);
+}
+
+// Remove appointments older than 24 hours
+function cleanExpiredNonRegularAppointments() {
+  let nonRegularAppts = JSON.parse(localStorage.getItem("nonRegularAppointments") || "[]");
+  const now = new Date().getTime();
+  const oneDayMs = 24 * 60 * 60 * 1000;
+
+  nonRegularAppts = nonRegularAppts.filter(appt => {
+    const createdTime = new Date(appt.createdAt).getTime();
+    return (now - createdTime) < oneDayMs;
+  });
+
+  localStorage.setItem("nonRegularAppointments", JSON.stringify(nonRegularAppts));
+  renderNonRegularAppointments();
+}
+
+// Search for non-regular appointment by patient ID
+function searchNonRegularAppointment() {
+  const searchInput = document.getElementById("nonRegularSearchInput");
+  const patientId = searchInput.value.trim();
+
+  if (!patientId) {
+    alert("Please enter a Patient ID");
+    return;
+  }
+
+  const nonRegularAppts = JSON.parse(localStorage.getItem("nonRegularAppointments") || "[]");
+  const results = nonRegularAppts.filter(appt => appt.patientId === patientId);
+
+  if (results.length === 0) {
+    alert(`No appointments found for Patient ID: ${patientId}`);
+    document.getElementById("nonRegularAppointmentsTable").innerHTML = "";
+    return;
+  }
+
+  // Render only the searched results
+  renderNonRegularAppointments(results);
+}
+
+// Render non-regular appointments
+function renderNonRegularAppointments(filteredAppts = null) {
+  const table = document.getElementById("nonRegularAppointmentsTable");
+  if (!table) return;
+
+  const allAppts = JSON.parse(localStorage.getItem("nonRegularAppointments") || "[]");
+  const appts = filteredAppts || allAppts;
+  table.innerHTML = "";
+
+  if (appts.length === 0) {
+    table.innerHTML = "<tr><td colspan='8' class='text-center'>No non-regular appointments</td></tr>";
+    return;
+  }
+
+  appts.forEach((appt, index) => {
+    const row = document.createElement("tr");
+    const createdTime = new Date(appt.createdAt);
+    const now = new Date();
+    const hoursOld = Math.floor((now - createdTime) / (1000 * 60 * 60));
+    const status = appt.done ? "Checked" : `${hoursOld}h old`;
+
+    const actionButton = appt.sent ?
+      `<button class="btn btn-success btn-sm" disabled>Sent to Doctor</button>` :
+      `<button class="btn btn-info btn-sm ms-1" onclick="sendNonRegularToDoctor('${appt.patientId}')">Send to Doctor</button>`;
+
+    const doneButton = appt.done ?
+      `<button class="btn btn-secondary btn-sm ms-1" disabled>Done</button>` :
+      `<button class="btn btn-success btn-sm ms-1" onclick="markNonRegularDone('${appt.patientId}')">Done</button>`;
+
+    row.innerHTML = `
+      <td>${appt.patientId}</td>
+      <td>${appt.name}</td>
+      <td>${appt.phone}</td>
+      <td>${appt.doctor}</td>
+      <td>${appt.date}</td>
+      <td>${appt.time}</td>
+      <td>${status}</td>
+      <td>
+        <button class="btn btn-danger btn-sm" onclick="deleteNonRegular('${appt.patientId}')">Delete</button>
+        ${actionButton}
+        ${doneButton}
+      </td>
+    `;
+
+    table.appendChild(row);
+  });
+}
+
+// Send non-regular appointment to doctor's inbox
+function sendNonRegularToDoctor(patientId) {
+  const nonRegularAppts = JSON.parse(localStorage.getItem("nonRegularAppointments") || "[]");
+  const appointment = nonRegularAppts.find(appt => appt.patientId === patientId);
+
+  if (!appointment) return alert("Appointment not found");
+
+  const doctorInbox = JSON.parse(localStorage.getItem("doctorInbox") || "[]");
+  
+  // Add appointment to doctor inbox with patient data
+  doctorInbox.push({
+    name: appointment.name,
+    phone: appointment.phone,
+    doctor: appointment.doctor,
+    date: appointment.date,
+    time: appointment.time,
+    patientId: appointment.patientId,
+    age: appointment.age,
+    gender: appointment.gender,
+    isNonRegular: true,
+    sentAt: new Date().toISOString()
+  });
+
+  localStorage.setItem("doctorInbox", JSON.stringify(doctorInbox));
+
+  // Mark as sent
+  const index = nonRegularAppts.findIndex(a => a.patientId === patientId);
+  if (index !== -1) {
+    nonRegularAppts[index].sent = true;
+    localStorage.setItem("nonRegularAppointments", JSON.stringify(nonRegularAppts));
+  }
+
+  alert("Appointment sent to doctor's inbox");
+  renderNonRegularAppointments();
+}
+
+// Mark non-regular appointment as done
+function markNonRegularDone(patientId) {
+  const nonRegularAppts = JSON.parse(localStorage.getItem("nonRegularAppointments") || "[]");
+  const index = nonRegularAppts.findIndex(appt => appt.patientId === patientId);
+
+  if (index !== -1) {
+    nonRegularAppts[index].done = true;
+    localStorage.setItem("nonRegularAppointments", JSON.stringify(nonRegularAppts));
+    renderNonRegularAppointments();
+  }
+}
+
+// Delete non-regular appointment
+function deleteNonRegular(patientId) {
+  if (!confirm("Delete this appointment permanently?")) return;
+
+  let nonRegularAppts = JSON.parse(localStorage.getItem("nonRegularAppointments") || "[]");
+  nonRegularAppts = nonRegularAppts.filter(appt => appt.patientId !== patientId);
+  localStorage.setItem("nonRegularAppointments", JSON.stringify(nonRegularAppts));
+
+  renderNonRegularAppointments();
+}
+
+// Test function to simulate 24-hour removal
+function testAutoRemoval() {
+  const nonRegularAppts = JSON.parse(localStorage.getItem("nonRegularAppointments") || "[]");
+  if (nonRegularAppts.length === 0) {
+    alert("No non-regular appointments to test");
+    return;
+  }
+
+  // Age all appointments by ~24 hours
+  nonRegularAppts.forEach(appt => {
+    const createdDate = new Date(appt.createdAt);
+    createdDate.setHours(createdDate.getHours() - 25);
+    appt.createdAt = createdDate.toISOString();
+  });
+
+  localStorage.setItem("nonRegularAppointments", JSON.stringify(nonRegularAppts));
+  alert("All appointments aged by 25 hours. Running cleanup...");
+  cleanExpiredNonRegularAppointments();
+}
+
 // ---------- Render Feedback ----------
 function renderAdminFeedback() {
   const table = document.getElementById("adminFeedbackTable");
@@ -163,6 +336,7 @@ function renderAdminReports() {
         </div>
         <div class="mt-3 gap-2 d-flex">
           <button class="btn btn-sm btn-info" onclick="sendReportsToDoctor('${patientId}')">Send to Doctor</button>
+          <button class="btn btn-sm btn-warning" onclick="deleteIndividualReport('${patientId}')">Delete Selected</button>
           <button class="btn btn-sm btn-danger" onclick="removePatientReports('${patientId}')">Remove All</button>
         </div>
       </div>
@@ -172,6 +346,26 @@ function renderAdminReports() {
   });
 }
 
+// Delete individual report
+function deleteIndividualReport(patientId) {
+  const reportId = prompt("Enter the report ID to delete (or press Cancel to cancel):");
+  if (!reportId) return;
+
+  let reports = JSON.parse(localStorage.getItem("uploadedReports") || "[]");
+  const reportIndex = reports.findIndex(r => r.patientId === patientId && r.id == reportId);
+
+  if (reportIndex === -1) {
+    alert("Report not found");
+    return;
+  }
+
+  if (confirm("Delete this report?")) {
+    reports.splice(reportIndex, 1);
+    localStorage.setItem("uploadedReports", JSON.stringify(reports));
+    renderAdminReports();
+    loadDashboardCounts();
+  }
+}
 function sendReportsToDoctor(patientId) {
   const reports = JSON.parse(localStorage.getItem("uploadedReports") || "[]");
   const patientDb = JSON.parse(localStorage.getItem("patientDatabase") || "{}");
@@ -231,6 +425,8 @@ function closeModal() {
 document.addEventListener("DOMContentLoaded", () => {
   loadDashboardCounts();
   renderAdminAppointments();
+  renderNonRegularAppointments();
   renderAdminFeedback();
   renderAdminReports();
+  initNonRegularAutoRemoval();
 });

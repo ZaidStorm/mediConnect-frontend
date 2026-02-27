@@ -11,6 +11,8 @@
 <div class="container mt-5">
   <h2>Appointments</h2>
 
+  <!-- Regular Appointments Section -->
+  <h3 class="mt-5">Regular Patient Appointments</h3>
   <div class="card p-4 mt-4">
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -25,6 +27,41 @@
           </tr>
         </thead>
         <tbody id="adminAppointmentsTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Non-Regular Appointments Section -->
+  <h3 class="mt-5">Non-Regular Patient Appointments</h3>
+  <div class="card p-4 mt-4">
+    <h5>Search Non-Regular Appointment</h5>
+    <div class="row mb-3">
+      <div class="col-md-8">
+        <input id="nonRegularSearchInput" type="text" class="form-control" placeholder="Enter Patient ID (e.g., P12345678)">
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-info w-100" onclick="searchNonRegularAppointment()">Search</button>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-warning w-100" onclick="testAutoRemoval()">Test 24h Removal</button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Patient ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="nonRegularAppointmentsTable"></tbody>
       </table>
     </div>
   </div>

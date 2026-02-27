@@ -114,6 +114,23 @@ function bookAppointment() {
   setTimeout(() => {
     downloadSlip(appointment, patientId);
 
+    // Store non-regular appointment with metadata for admin
+    let nonRegularAppts = JSON.parse(localStorage.getItem('nonRegularAppointments') || '[]');
+    nonRegularAppts.push({
+      patientId: patientId,
+      name: name,
+      phone: phone,
+      doctor: doctor,
+      date: date,
+      time: time,
+      age: '', // Will be filled when admin/doctor process it
+      gender: '', // Will be filled when admin/doctor process it
+      createdAt: new Date().toISOString(),
+      sent: false,
+      done: false
+    });
+    localStorage.setItem('nonRegularAppointments', JSON.stringify(nonRegularAppts));
+
     // Clear form
     document.getElementById("patientName").value = "";
     document.getElementById("patientPhone").value = "";
